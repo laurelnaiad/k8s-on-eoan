@@ -78,17 +78,20 @@ sudo reboot now
 # corrected before proceeding.
 ./02-local-dns-primary.sh
 ```
-### Step 3 – Platform Installations
+### Steps 3 & 4 – Platform Install/Config
 ```bash
 ./03-platform-install.sh
+# Step 3 ends having just installed kubeadm, kubectl and kubelet
+# Step 4 is a good place to pick up again if you've just run kubeadm reset for one reason or another...
+./04-platform-config.sh
 # At this point, we should have a running cluster, incl. all of the resources
-# installed by kubeadm, as well as flannel networking. The following should show
+# installed by kubeadm init, as well as flannel networking. The following should show
 # all pods as Running.
 kubectl get pods -A
 ```
-### Step 4 – Kubernetes Configuration
+### Step 5 – Kubernetes Configuration
 ```bash
-./04-k8s-config.sh
+./05-k8s-config.sh
 ```
 
 ## License
