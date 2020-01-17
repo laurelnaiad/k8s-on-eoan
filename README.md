@@ -3,7 +3,7 @@
 Bare-Metal Kubernetes on Ubuntu 19.10
 ---
 
-__NOTICE__: These scripts have not yet been re-tested from start to finish on a clean system. There might be a hiccup or two. Regardless, please please please read them before running them.
+__NOTICE__: _Steps 1 and 2__  of these scripts have not yet been re-tested from start to finish on a clean system. There might be a hiccup or two. Regardless, please please please read them before running them.
 
 This repo may be used to configure an Ubuntu 19.10 server to run a single-node Kubernetes cluster, though those who aren't running Ubuntu 19.10 may still find some value in the various scripts within.
 
@@ -22,7 +22,7 @@ There is nothing particularly magical about this configuration – it is the res
 
 The following are installed and configured on the host:
 
-* Kubernetes 1.17.0
+* Kubernetes 1.17.1
 * CRI-O
 * crun and runc, configured as RuntimeClasses
 * fuse-overlayfs
@@ -104,6 +104,6 @@ Aside from help files/issues in the various repositories for the components here
 
 This is my first foray into Kubernetes, and nobody has ever paid me to administer linux machines as my primary job function. I imagine there are things I could do better. I would very much welcome any advice/improvements in the form of issues or PRs! Questions are welcome, too!
 
-At present, this repo is in a first-draft state, so expect it to go through a revision in the near future.
+At present, this repo is in a second-draft state, so expect it to go through at least one more revision in the near future.
 
 In addition to running the scripts from zero to finish with no edits for sanity checking, I also intend to eliminate most of the cat'ing into yaml files, in preference for breaking out the yaml into its own files, to make it all easier to consume.
