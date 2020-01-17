@@ -43,6 +43,7 @@ staticClients:
 - id: kubernetes
   redirectURIs:
   - $MY_GANGWAY_URL/callback
+  - https://$KEYS_APP_HOST.$PRI_DOMAIN:443/callback
   name: kubernetes
   secret: kubernetes-client-secret
 YAML

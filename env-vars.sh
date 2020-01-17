@@ -37,7 +37,7 @@ GITHUB_ORG=
 DASHBOARD_HOST=dashboard
 DEX_ISSUER_HOST=login
 GANGWAY_HOST=gangway
-
+KEYS_APP_HOST=keys
 
 KUBE_ADMIN_USER=me@example.com
 
