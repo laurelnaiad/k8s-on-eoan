@@ -78,7 +78,7 @@ bootstrapTokens:
 ---
 kind: ClusterConfiguration
 apiVersion: kubeadm.k8s.io/v1beta2
-kubernetesVersion: v1.17.0
+kubernetesVersion: v1.17.1
 clusterName: $CLUSTER_NAME
 networking:
   podSubnet: 10.244.0.0/16
