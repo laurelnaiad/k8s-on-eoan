@@ -22,8 +22,9 @@ kubectl apply -f $MYDIR/$MY_SESSION_SECURITY_SECRET.sealed.json
 
 mkdir $MYDIR/templates
 cp $MYDIR/heptiolabs-gangway/templates/* $MYDIR/templates/
+HISTCLEAR='history -d $(history 2); history -w'
 cat $MYDIR/templates/commandline.tmpl \
-  | sed 's/kubectl config set-credentials/# space prepended to following cmd to keep it out of bash history\n\&nbsp;kubectl config set-credentials/' \
+  | awk -v HISTCLEAR="$HISTCLEAR" '{if(/^kubectl config set-context/) {print HISTCLEAR "\n" $0} else {print $0}}' \
   | tee $MYDIR/templates/commandline.tmpl
 kubectl delete configmap -n gangway gangway-templates
 kubectl create configmap -n gangway gangway-templates --from-file=$MYDIR/templates
@@ -94,8 +95,6 @@ spec:
               mountPath: /gangway
             - name: gangway-templates
               mountPath: /gangway-templates
-            # - name: ca-cert
-            #   mountPath: /etc/ssl/certs/openid-ca.pem
           livenessProbe:
             httpGet:
               path: /
@@ -118,9 +117,6 @@ spec:
         - name: gangway-templates
           configMap:
             name: gangway-templates
-        # - name: ca-cert
-        #   hostPath:
-        #     path: /etc/ssl/certs/openid-ca.pem
 ---
 kind: Service
 apiVersion: v1
