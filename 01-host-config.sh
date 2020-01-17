@@ -9,6 +9,7 @@
 ./host-config/setup-dirs.sh
 ./host-config/flannel/rc-local-service-install.sh
 ./host-config/apt-installs.sh
+./host-config/git-config.sh
 ./dnsmasq-install/dnsmasq-config.sh
 ./host-config/golang-install.sh
 ./host-config/conmon-install.sh
