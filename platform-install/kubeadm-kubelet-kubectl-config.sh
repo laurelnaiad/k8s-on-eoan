@@ -99,7 +99,7 @@ EOF
 sudo modprobe br_netfilter
 echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward
 
-sudo kubeadm init --config=$WORK_DIR/kubeadm-config.yml
+sudo kubeadm init --config="$WORK_DIR/kubeadm-config.yml"
 rm -rf ~/.kube
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
