@@ -13,6 +13,15 @@ mkdir -p $MYDIR
 MY_SECRET=aws-iam-cert-manager
 kubectl create namespace cert-manager
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.12.0/cert-manager.yaml
+
+until [ $(kubectl get pods --namespace cert-manager \
+    | awk '{if(/-webhook-/) {print $2}}' \
+    | awk -F/ '{print $1}') -gt 0 ]
+do
+  echo "waiting for cert-manager webhook to be ready"
+  sleep 2
+done
+
 # create a sealed secret of the aws credentials
  echo -n ${AWS_SECRET_ACCESS_KEY} \
   | kubectl create secret generic \
