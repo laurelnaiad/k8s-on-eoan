@@ -3,8 +3,8 @@
 # 04-k8s-config.sh
 
 ########################################################################
-./env-vars.sh
-./secure-vars.sh
+source ../env-vars.sh
+source ../secure-vars.sh
 
 ./k8s-config/runtime-classes.sh
 ./k8s-config/sealed-secrets.sh

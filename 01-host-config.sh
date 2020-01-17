@@ -3,8 +3,8 @@
 # 01-host-config.sh
 
 ########################################################################
-./env-vars.sh
-./secure-vars.sh
+source ../env-vars.sh
+source ../secure-vars.sh
 
 ./host-config/setup-dirs.sh
 ./host-config/flannel/rc-local-service-install.sh

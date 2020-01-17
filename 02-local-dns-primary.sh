@@ -3,6 +3,9 @@
 # 02-local-dns-as-primary
 
 ########################################################################
+source ../env-vars.sh
+source ../secure-vars.sh
+
 dig @127.0.0.1 A google.com
 if [[ $? -ne 0 ]]
 then
