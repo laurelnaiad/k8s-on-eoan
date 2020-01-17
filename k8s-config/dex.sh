@@ -42,8 +42,8 @@ oauth2:
 staticClients:
 - id: kubernetes
   redirectURIs:
-  - $MY_GANGWAY_URL/callback
-  - https://$KEYS_APP_HOST.$PRI_DOMAIN:443/callback
+  - "$GANGWAY_URL/callback"
+  - "https://$KEYS_APP_HOST.$PRI_DOMAIN:443/callback"
   name: kubernetes
   secret: kubernetes-client-secret
 YAML
@@ -51,11 +51,11 @@ YAML
 if [[ -n $GITHUB_ORG ]]
 then
 cat $MYDIR/config.yaml \
-  | awk -v GHORG=$GITHUB_ORG '{if(/^oauth2:/) {print "  orgs:\n  - name: \"" GHORG "\"\n" $0} else {print $0}}' \
+  | awk -v GHORG=$GITHUB_ORG '{if(/^oauth2:/) {print "    orgs:\n    - name: \"" GHORG "\"\n" $0} else {print $0}}' \
   | tee $MYDIR/config.yaml
 else
 cat $MYDIR/config.yaml \
-  | awk '{if(/^oauth2:/) {print "  loadAllGroups: true\n" $0} else {print $0}}' \
+  | awk '{if(/^oauth2:/) {print "    loadAllGroups: true\n" $0} else {print $0}}' \
   | tee $MYDIR/config.yaml
 fi
 kubectl delete configmap -n $MYNS dex

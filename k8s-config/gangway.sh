@@ -20,7 +20,7 @@ kubectl create secret generic -n gangway $MY_SESSION_SECURITY_SECRET \
   >$MYDIR/$MY_SESSION_SECURITY_SECRET.sealed.json
 kubectl apply -f $MYDIR/$MY_SESSION_SECURITY_SECRET.sealed.json
 
-mkdir $MYDIR/templates
+mkdir -p $MYDIR/templates
 cp $MYDIR/heptiolabs-gangway/templates/* $MYDIR/templates/
 HISTCLEAR='history -d $(history 2); history -w'
 cat $MYDIR/templates/commandline.tmpl \
@@ -34,7 +34,7 @@ clusterName: "$CLUSTER_NAME"
 authorizeURL: $DEX_ISSUER_URL/auth
 tokenURL: $DEX_ISSUER_URL/token
 audience: $DEX_ISSUER_URL/userinfo
-redirectURL: $MY_GANGWAY_URL/callback
+redirectURL: $GANGWAY_URL/callback
 clientID: kubernetes
 clientSecret: kubernetes-client-secret
 usernameClaim: email
