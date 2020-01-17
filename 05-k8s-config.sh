@@ -13,3 +13,4 @@ source ../secure-vars.sh
 ./k8s-config/cert-manager.sh
 ./k8s-config/dex.sh
 ./k8s-config/gangway.sh
+./k8s-config/authorization-config.sh
