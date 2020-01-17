@@ -24,3 +24,4 @@
 ./host-config/libpod-podman-skopeo/alias-docker.sh
 ./host-config/crio-o/crio-o-install.sh
 ./host-config/kustomize-install.sh
+./host-config/helm-install.sh
