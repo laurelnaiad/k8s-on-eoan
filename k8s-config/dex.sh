@@ -46,6 +46,17 @@ staticClients:
   name: kubernetes
   secret: kubernetes-client-secret
 YAML
+
+if [[ -n $GITHUB_ORG ]]
+then
+cat $MYDIR/config.yaml \
+  | awk -v GHORG=$GITHUB_ORG '{if(/^oauth2:/) {print "  orgs:\n  - name: \"" GHORG "\"\n" $0} else {print $0}}' \
+  | tee $MYDIR/config.yaml
+else
+cat $MYDIR/config.yaml \
+  | awk '{if(/^oauth2:/) {print "  loadAllGroups: true\n" $0} else {print $0}}' \
+  | tee $MYDIR/config.yaml
+fi
 kubectl delete configmap -n $MYNS dex
 kubectl create configmap -n $MYNS dex  --from-file=$MYDIR/config.yaml
 

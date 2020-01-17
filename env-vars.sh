@@ -31,8 +31,7 @@ WORK_DIR=$HOME/setup-kubernetes
 PRI_DOMAIN=example.com
 
 # if specified, restricts logins to a github org
-# TODO: this isn't actually done, yet
-# GITHUB_ORG=
+GITHUB_ORG=
 
 # hostnames for the services
 DASHBOARD_HOST=dashboard

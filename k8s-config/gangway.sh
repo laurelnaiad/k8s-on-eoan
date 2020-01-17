@@ -40,6 +40,7 @@ clientSecret: kubernetes-client-secret
 usernameClaim: email
 apiServerURL: https://$ADVERTISE_ADDR:6443
 customHTMLTemplatesDir: /gangway-templates
+scopes: ["openid", "profile", "email", "groups", "offline_access"]
 EOF
 kubectl delete configmap -n gangway gangway
 kubectl create configmap -n gangway gangway --from-literal gangway.yaml="$GANGWAY_YAML"
@@ -74,6 +75,8 @@ spec:
             # seems to be a long story behind this bug.
             - name: GANGWAY_PORT
               value: "8080"
+            - name: GANGWAY_SCOPES
+              value: "openid,profile,email,groups,offline_access"
             - name: GANGWAY_SESSION_SECURITY_KEY
               valueFrom:
                 secretKeyRef:
