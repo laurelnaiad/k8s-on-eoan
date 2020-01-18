@@ -26,3 +26,4 @@ source ../secure-vars.sh
 ./host-config/crio-o/crio-o-install.sh
 ./host-config/kustomize-install.sh
 ./host-config/helm-install.sh
+./host-config/yq.sh
