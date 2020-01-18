@@ -6,6 +6,9 @@
 source ../env-vars.sh
 source ../secure-vars.sh
 
+# https://blog.heptio.com/properly-resetting-your-kubeadm-bootstrapped-cluster-nodes-heptioprotip-473bd0b824aa
+sudo timedatectl set-timezone Etc/UTC
+
 ./host-config/setup-dirs.sh
 ./host-config/flannel/rc-local-service-install.sh
 ./host-config/apt-installs.sh
