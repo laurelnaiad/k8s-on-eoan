@@ -100,6 +100,9 @@ EOF
 sudo modprobe br_netfilter
 echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward
 
+# # https://blog.heptio.com/properly-resetting-your-kubeadm-bootstrapped-cluster-nodes-heptioprotip-473bd0b824aa
+sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sudo iptables -X
+
 sudo kubeadm init --config="$WORK_DIR/kubeadm-config.yml"
 rm -rf ~/.kube
 mkdir -p $HOME/.kube
