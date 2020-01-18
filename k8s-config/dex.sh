@@ -42,8 +42,7 @@ oauth2:
 staticClients:
 - id: kubernetes
   redirectURIs:
-  - "$GANGWAY_URL/callback"
-  - "https://$KEYS_APP_HOST.$PRI_DOMAIN:443/callback"
+  - "$KEYS_APP_URL/callback"
   name: kubernetes
   secret: kubernetes-client-secret
 YAML
@@ -180,7 +179,7 @@ spec:
   tls:
   - hosts:
     - $DEX_ISSUER_FQDN
-    secretName: dex-tls
+    secretName: $DEX_ISSUER_FQDN-tls
 EOF
 kubectl apply -f $MYDIR/dex-k8s-config.yaml
 kubectl rollout restart deployment -n $MYNS dex

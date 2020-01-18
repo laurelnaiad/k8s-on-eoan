@@ -34,7 +34,7 @@ clusterName: "$CLUSTER_NAME"
 authorizeURL: $DEX_ISSUER_URL/auth
 tokenURL: $DEX_ISSUER_URL/token
 audience: $DEX_ISSUER_URL/userinfo
-redirectURL: $GANGWAY_URL/callback
+redirectURL: $KEYS_APP_URL/callback
 clientID: kubernetes
 clientSecret: kubernetes-client-secret
 usernameClaim: email
@@ -71,17 +71,20 @@ spec:
           imagePullPolicy: IfNotPresent
           command: ["gangway", "-config", "/gangway/gangway.yaml"]
           env:
-            # kubelet starts failing if the GANGWAY_PORT env var isn't set.
-            # seems to be a long story behind this bug.
-            - name: GANGWAY_PORT
-              value: "8080"
-            - name: GANGWAY_SCOPES
-              value: "openid,profile,email,groups,offline_access"
+
             - name: GANGWAY_SESSION_SECURITY_KEY
               valueFrom:
                 secretKeyRef:
                   name: $MY_SESSION_SECURITY_SECRET
                   key: sesssionkey
+
+            - { name: GANGWAY_SCOPES,   value: "openid,profile,email,groups,offline_access" }
+
+            # Kubelet starts failing if the GANGWAY_PORT env var isn't set.
+            # Seems to be a long story behind this bug. It's supposed to be the default.
+
+            - { name: GANGWAY_PORT,     value: "8080" }
+
           ports:
             - name: http
               containerPort: 8080
@@ -150,7 +153,7 @@ metadata:
     cert-manager.io/cluster-issuer: cert-issuer-prod
 spec:
   rules:
-  - host: gangway.$PRI_DOMAIN
+  - host: $KEYS_APP_FQDN
     http:
       paths:
       - backend:
@@ -158,8 +161,8 @@ spec:
           servicePort: 8080
   tls:
   - hosts:
-    - gangway.$PRI_DOMAIN
-    secretName: gangway-tls
+    - $KEYS_APP_FQDN
+    secretName: $KEYS_APP_FQDN-tls
 EOF
 kubectl apply -f $MYDIR/config.yaml
 kubectl rollout restart deployment -n gangway gangway
