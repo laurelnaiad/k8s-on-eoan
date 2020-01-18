@@ -24,6 +24,7 @@ sudo apt-get update -qq && sudo apt-get install -y \
   git \
   go-md2man \
   iptables \
+  libapparmor-dev \
   libassuan-dev \
   libbtrfs-dev \
   libc6-dev \

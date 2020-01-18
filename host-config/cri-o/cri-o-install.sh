@@ -7,7 +7,8 @@
 MYDIR=$SRC_DIR/cri-o
 cd $MYDIR
 sudo sysctl --system
-make
+sudo make clean
+make BUILDTAGS='seccomp apparmor'
 sudo make install
 sudo make install.config
 
@@ -34,4 +35,4 @@ cat /etc/crio/crio.conf \
 sudo make install.systemd
 sudo systemctl daemon-reload
 sudo systemctl enable crio
-sudo systemctl start crio
+sudo systemctl restart crio
