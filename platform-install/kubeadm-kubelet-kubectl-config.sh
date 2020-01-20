@@ -44,6 +44,7 @@ EOF
 read -r -d '' MY_KUBELET_ARGS <<'EOF'
 --feature-gates='AllAlpha=false,RunAsGroup=true'
 --network-plugin=cni
+--pod-cidr=10.244.0.0/24
 --container-runtime=remote
 --cgroup-driver=systemd
 --container-runtime-endpoint='unix:///var/run/crio/crio.sock'
@@ -81,7 +82,7 @@ apiVersion: kubeadm.k8s.io/v1beta2
 kubernetesVersion: v1.17.1
 clusterName: $CLUSTER_NAME
 networking:
-  podSubnet: 10.244.0.0/16
+  podSubnet: 10.244.0.0/24
 scheduler:
   extraArgs:
     authentication-kubeconfig: /etc/kubernetes/scheduler.conf
