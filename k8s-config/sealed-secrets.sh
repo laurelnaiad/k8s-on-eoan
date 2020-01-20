@@ -5,9 +5,12 @@
 ########################################################################
 MYDIR=$WORK_DIR/sealed-secrets
 mkdir -p MYDIR
+if ! [[ $(stat /usr/local/bin/kubeseal) ]]
+then
 wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/kubeseal-linux-amd64 \
     -O $MYDIR/kubeseal
 sudo install -m 755 $MYDIR/kubeseal /usr/local/bin/kubeseal
+fi
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/controller.yaml
 until kubeseal --fetch-cert --controller-namespace kube-system > $SSCERT
 do
