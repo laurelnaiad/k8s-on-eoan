@@ -89,6 +89,8 @@ scheduler:
     authorization-kubeconfig: /etc/kubernetes/scheduler.conf
 apiServer:
   extraArgs:
+    authorization-mode: Node,RBAC
+    enable-admission-plugins: NodeRestriction,PodSecurityPolicy
     oidc-issuer-url: $DEX_ISSUER_URL
     oidc-client-id: kubernetes
     oidc-username-claim: email
