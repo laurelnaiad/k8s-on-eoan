@@ -52,3 +52,5 @@ sudo apt-get update -qq && sudo apt-get install -y \
   slirp4netns \
   socat \
   software-properties-common
+
+echo 'export PATH="$PATH:$HOME/.local/bin\"' | tee -a "$HOME/.profile"
