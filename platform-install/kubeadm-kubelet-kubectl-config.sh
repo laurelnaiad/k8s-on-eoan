@@ -42,7 +42,7 @@ EOF
 
 # https://stackoverflow.com/posts/1252191/revisions
 read -r -d '' MY_KUBELET_ARGS <<'EOF'
---feature-gates='AllAlpha=false,RunAsGroup=true'
+--feature-gates='AllAlpha=false,RunAsGroup=true,LocalStorageCapacityIsolationFSQuotaMonitoring=true'
 --network-plugin=cni
 --pod-cidr=10.244.0.0/24
 --container-runtime=remote
@@ -90,7 +90,7 @@ scheduler:
 apiServer:
   extraArgs:
     authorization-mode: Node,RBAC
-    enable-admission-plugins: NodeRestriction,PodSecurityPolicy
+    enable-admission-plugins: NodeRestriction,PodSecurityPolicy,ResourceQuota,DefaultStorageClass
     oidc-issuer-url: $DEX_ISSUER_URL
     oidc-client-id: kubernetes
     oidc-username-claim: email
