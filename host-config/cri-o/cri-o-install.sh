@@ -7,6 +7,7 @@
 MYDIR=$SRC_DIR/cri-o
 cd $MYDIR
 sudo sysctl --system
+sudo rm /etc/crio/crio.conf
 sudo make clean
 make BUILDTAGS='seccomp apparmor'
 sudo make install

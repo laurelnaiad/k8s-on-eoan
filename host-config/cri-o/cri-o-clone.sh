@@ -9,3 +9,7 @@
 
 MYDIR=$SRC_DIR/cri-o
 git clone https://github.com/cri-o/cri-o $MYDIR
+
+git remote add mrunalp https://github.com/mrunalp/cri-o
+git checkout mrunalp/check_ctx
+git checkout -b mrunalp_check_ctx
