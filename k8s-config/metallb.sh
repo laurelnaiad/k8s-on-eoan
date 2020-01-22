@@ -29,7 +29,11 @@ data:
       protocol: layer2
       addresses:
       - $PUBLIC_IP_RANGE
-    - name: default
+    - name: load-balancer-intranet
+      protocol: layer2
+      addresses:
+      - $LB_INTRANET_IP-$LB_INTRANET_IP
+    - name: private-ip
       protocol: layer2
       addresses:
       - $PRIVATE_IP_RANGE

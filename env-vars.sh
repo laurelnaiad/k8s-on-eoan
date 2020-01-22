@@ -22,29 +22,36 @@ export KUBE_ADMIN_USER=me@example.com
 # name of lvm volume group in which to create persistent volumes
 export PERSISTENT_VOLUME_GROUP=ubuntu-vg
 
+# an ip address that can be wellknown to the dns server, for reading the zone
+# data set by the external-dns systme
+# The IP address to assign to the etcd client service which fronts the etcd
+# cluster which in turn supports the external-dns container in the
+# intranet-dns namespace.
+export INTRANET_DNS_ETCD_FIXED_IP="10.96.1.1"
+
 # If your lan isn't 10.0.0.0/16, and/or your host isn't 10.0.0.10, you'll need
 # to modify these.
 
 # The kubernetes master node IP address in the lan on which host runs
 export ADVERTISE_ADDR="10.0.0.10"
 
-# IP to be assigned by metallb for the nginx-controller service
+# IP to be assigned by metallb for the nginx-controller service serving
+# public internet sites. It will serve sites running in the PUBLIC_IP_RANGE
+# range.
 export LB_IP="10.0.1.1"
-
+# Same, but for private (intranet) sites. It will serve sites running in the
+# PRIVATE_IP_RANGE range.
+export LB_INTRANET_IP="10.0.4.1"
 # The script configures an instance of coredns (separate from those serving
 # kubernetes itself). This is used for serving as an intranet name server (i.e.
 # covering the zone intranet.$PRI_DOMAIN).
 # This is the IP address that will be assigned to that dns server.
 export INTRANET_DNS_IP="10.0.1.2"
-# an ip address that can be wellknown to the dns server, for reading the zone
-# data set by the external-dns systme
-export INTRANET_DNS_ETCD_FIXED_IP="10.96.1.1"
 # IP range for metallb to assign to ingresses which should be exposed separately
 # from the nginx-ingress.
 export PUBLIC_IP_RANGE="10.0.3.1-10.0.3.254"
-
 # Same, but for IPs not intended to be exposed outside the firewall.
-export PRIVATE_IP_RANGE="10.0.4.1-10.0.4.254"
+export PRIVATE_IP_RANGE="10.0.5.1-10.0.5.254"
 
 # for Route53, which is hit by cert-manager in this config to prove domain
 # ownership for letsencrypt
