@@ -21,6 +21,10 @@ data:
       protocol: layer2
       addresses:
       - $LB_IP-$LB_IP
+    - name: intranet-dns
+      protocol: layer2
+      addresses:
+      - $INTRANET_DNS_IP-$INTRANET_DNS_IP
     - name: public-ip
       protocol: layer2
       addresses:

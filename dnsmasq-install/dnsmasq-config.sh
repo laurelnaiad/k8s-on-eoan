@@ -4,7 +4,11 @@
 
 # Ubuntu has a few layers of helpers in the way of running dnsmasq as we wish.
 # This script wipes out those "helpers" and installs dnsmasq. The upstream name
-# servers are hardcoded to google's.
+# servers are hardcoded to google's. Two resolv.confs are produced, one for
+# consultation by this host (/etc/resolv.conf), the other for consultation by
+# the kubernetes name server (/etc/resolv.public.conf). This is to eliminate
+# the potential for a forwarding loop. With this config, other machines
+# on the intranet can use this host as the forwarding nameserver.
 
 ########################################################################
 
@@ -33,7 +37,8 @@ MY_ADDRESSES="listen-address=127.0.0.1\nlisten-address=$(hostname -I | sed 's/ .
 read -r -d '' MY_BLOCK <<EOF
 $MY_ADDRESSES
 
-server=/cluster.local/10.96.0.10
+server=/cluster.local/$INTRANET_DNS_IP
+server=/intranet.$PRI_DOMAIN/$INTRANET_DNS_IP
 server=8.8.8.8
 server=8.8.4.4
 

@@ -31,6 +31,14 @@ export ADVERTISE_ADDR="10.0.0.10"
 # IP to be assigned by metallb for the nginx-controller service
 export LB_IP="10.0.1.1"
 
+# The script configures an instance of coredns (separate from those serving
+# kubernetes itself). This is used for serving as an intranet name server (i.e.
+# covering the zone intranet.$PRI_DOMAIN).
+# This is the IP address that will be assigned to that dns server.
+export INTRANET_DNS_IP="10.0.1.2"
+# an ip address that can be wellknown to the dns server, for reading the zone
+# data set by the external-dns systme
+export INTRANET_DNS_ETCD_FIXED_IP="10.96.1.1"
 # IP range for metallb to assign to ingresses which should be exposed separately
 # from the nginx-ingress.
 export PUBLIC_IP_RANGE="10.0.3.1-10.0.3.254"
