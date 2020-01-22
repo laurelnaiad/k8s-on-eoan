@@ -8,6 +8,7 @@ source ../secure-vars.sh
 
 ./k8s-config/runtime-classes.sh
 ./k8s-config/local-static-provisioner.sh
+./k8s-config/etcd-operator.sh
 ./k8s-config/sealed-secrets.sh
 ./k8s-config/metallb.sh
 ./k8s-config/nginx-ingress.sh
