@@ -30,3 +30,4 @@ sudo timedatectl set-timezone Etc/UTC
 ./host-config/kustomize-install.sh
 ./host-config/helm-install.sh
 ./host-config/yq.sh
+./host-config/scratch-volume-mounts.sh

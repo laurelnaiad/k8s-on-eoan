@@ -19,6 +19,9 @@ export CLUSTER_NAME=my-cluster
 export PRI_DOMAIN=example.com
 export KUBE_ADMIN_USER=me@example.com
 
+# name of lvm volume group in which to create persistent volumes
+export PERSISTENT_VOLUME_GROUP=ubuntu-vg
+
 # If your lan isn't 10.0.0.0/16, and/or your host isn't 10.0.0.10, you'll need
 # to modify these.
 
@@ -51,6 +54,12 @@ export KEYS_APP_HOST=keys
 # probably don't want to modify these:
 
 export SRC_DIR=$WORK_DIR/src
+
+# dir into which volumes will be mounted and discovered by static-local-provisioner
+export PERSISTENT_VOLUME_VOLS_DIR=/k8s-vols
+export PERSISTENT_VOLUME_DISCO_DIR=/k8s-disco
+export FIXED_SIZE_CLASS=fixed-sized
+export SCRATCH_CLASS=scratch
 
 # unless you want set up a second nginx-ingress controller to run on some odd
 # port number, leave this at 443.

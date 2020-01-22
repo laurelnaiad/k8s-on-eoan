@@ -55,11 +55,11 @@ The following are installed and configured on the host:
 
 ### Prerequisites
 
-* Install Ubuntu 19.10 on a machine with at least 8GB RAM. I am using a Mac Mini 2014 :)
-* Ensure OpenSSH is installed (the installer will offer)
+* Install Ubuntu 19.10 on a machine with at least 8GB RAM, using GPT partition tables. I am using a Mac Mini 2014 :)
 * Ensure var, tmp, home dirs have enough space (I gave var and tmp 10GB each and home has 100GB. The balance of the disk is lying fallow for persistent volume claims for apps)
+* Ensure OpenSSH is installed (the installer will offer)
 * apt install updates
-* configure passwordless root ssh (if and only if you want/need to run podman remote)
+* configure passwordless root ssh (if you want/need to run podman remote)
 
 ### Step 0 - Add values to secure-vars.sh / env-vars.sh
 
