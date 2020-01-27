@@ -37,7 +37,7 @@ MY_ADDRESSES="listen-address=127.0.0.1\nlisten-address=$(hostname -I | sed 's/ .
 read -r -d '' MY_BLOCK <<EOF
 $MY_ADDRESSES
 
-server=/cluster.local/$INTRANET_DNS_IP
+server=/cluster.local/10.96.0.10
 server=/intranet.$PRI_DOMAIN/$INTRANET_DNS_IP
 server=8.8.8.8
 server=8.8.4.4

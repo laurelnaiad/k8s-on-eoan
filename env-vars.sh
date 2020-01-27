@@ -73,7 +73,7 @@ export SRC_DIR=$WORK_DIR/src
 # dir into which volumes will be mounted and discovered by static-local-provisioner
 export PERSISTENT_VOLUME_VOLS_DIR=/k8s-vols
 export PERSISTENT_VOLUME_DISCO_DIR=/k8s-disco
-export FIXED_SIZE_CLASS=fixed-sized
+export FIXED_SIZE_CLASS=fixed-size
 export SCRATCH_CLASS=scratch
 
 # unless you want set up a second nginx-ingress controller to run on some odd

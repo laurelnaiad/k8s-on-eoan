@@ -20,3 +20,6 @@ MY_PATCH='[{"op": "replace", "path": "/spec/template/spec/containers/0/args", "v
 kubectl patch -n ingress-nginx deployment/nginx-ingress-controller --type=json -p="$MY_PATCH"
 kubectl patch -n ingress-nginx configmap/nginx-configuration --type merge -p='{ "data": { "custom-http-errors": "404,503" }}'
 kubectl rollout restart -n ingress-nginx deploy/nginx-ingress-controller
+
+
+"--default-backend-service=$(POD_NAMESPACE)/nginx-errors"] }]'

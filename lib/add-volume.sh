@@ -25,22 +25,28 @@ function add_volume() {
   CLASSNAME=$1
   SIZE=$2
   OWNER_UID=$3
-  if [[ -n "$4" ]]; then OWNER_GID=$4; else OWNER_GID=$3; fi
+  if [[ -n "$3" ]]; then OWNER_UID=$3; else OWNER_UID=root; fi
+  if [[ -n "$4" ]]; then OWNER_GID=$4; else OWNER_GID=$OWNER_UID; fi
   if [[ -n "$5" ]]; then PERMS=$5; else PERMS="770"; fi
+  echo "adding volume: { classname: $CLASSNAME, size: $SIZE, owner_uid: $OWNER_UID, owner_gid: $OWNER_GID, perms: $PERMS }"
 
-  LVCOUNT=$(sudo lvs | grep k8s-vol-$CLASSNAME | wc -l)
-  VOLNUM=printf %03d $LVCOUNT
+  LVCOUNT=$(sudo lvs | grep k8s-$CLASSNAME-vol- | wc -l)
+  VOLNUM=$(printf %03d $LVCOUNT)
   VOLNAME=k8s-$CLASSNAME-vol-$VOLNUM-lv
+  MYDEV=/dev/$PERSISTENT_VOLUME_GROUP/$VOLNAME
+  echo "volume: { volName: $VOLNAME, dev: $MYDEV }"
+
   sudo lvcreate -L +${SIZE} -n $VOLNAME $PERSISTENT_VOLUME_GROUP
-  MYDEV=/dev/$PERSISTENT_VOLUME_GROUP/$CLASSNAME-vol-$VOLNUM
   sudo mkfs.ext4 $MYDEV
-  sudo e2label $MYDEV k8s-$CLASSNAME-vol-$VOLNUM
+  sudo e2label $MYDEV $CLASSNAME-v$VOLNUM
   MY_VOL_UUID=$(sudo blkid -s UUID -o value $MYDEV)
   MY_SHORT_UUID=$(echo "$MY_VOL_UUID" | awk -F"-" '{print $1 "-" $2}')
   MY_VOL_DIR=$PERSISTENT_VOLUME_DISCO_DIR/$CLASSNAME/vol-$VOLNUM-$MY_SHORT_UUID
+  echo "volDir: $MY_VOL_DIR"
+
   sudo mkdir -p $MY_VOL_DIR
   sudo mount -t ext4 $MYDEV $MY_VOL_DIR
   sudo chmod $PERMS $MY_VOL_DIR
   sudo chown $OWNER_UID:$OWNER_GID $MY_VOL_DIR
-  echo UUID=$MY_SHORT_UUID $MY_VOL_DIR ext4 defaults 0 2 | sudo tee -a /etc/fstab
+  echo UUID=$MY_VOL_UUID $MY_VOL_DIR ext4 defaults 0 2 | sudo tee -a /etc/fstab
 }

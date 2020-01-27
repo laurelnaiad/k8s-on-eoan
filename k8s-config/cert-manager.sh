@@ -174,7 +174,7 @@ until [ $( \
     (.items[1].status.conditions[0].reason | test("Ready"))
   ') == "true" ]
 do
-  echo "`date +%r` --  waiting for test certificates to be ready (typically a several minutes):"
+  echo "`date +%r` --  waiting for test certificates to be ready (typically several minutes):"
   echo "  status:"
   kubectl get certs -n test-certs -o yaml | yq -r '
     .items[] | "    " + .metadata.name + ": " + .status.conditions[0].reason
@@ -190,8 +190,8 @@ kubectl get certs -n test-certs -o yaml | yq -r '
 # the only way to share them is to copy them between namepaces. But when a cert
 # is renewed, we'd need to copy it to the various namespaces, and there's no
 # automatic way to do that. Net/net it's, easier to just avoid shared wildcards
-# and let each ingress manage a certificate.
-
+# and let each ingress manage a certificate. Wildcards will be used by the
+# default backendsd for the two ingress controllers.
 # so...
 echo "test certs having been successfully generated, now deleting them"
 kubectl delete namespace test-certs
