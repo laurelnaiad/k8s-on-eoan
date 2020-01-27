@@ -81,7 +81,7 @@ export SCRATCH_CLASS=scratch
 export DEX_PORT=443
 export DEX_ISSUER_FQDN=$DEX_ISSUER_HOST.$PRI_DOMAIN
 export DEX_ISSUER_URL=https://$DEX_ISSUER_FQDN:$DEX_PORT
-export KEYS_APP_FQDN=$KEYS_APP_HOST.$PRI_DOMAIN
+export KEYS_APP_FQDN=$KEYS_APP_HOST.intranet.$PRI_DOMAIN
 export KEYS_APP_URL=https://$KEYS_APP_FQDN
 
 export SSCERT=$WORK_DIR/sealed-secrets/sealed-secrets-cert.pem

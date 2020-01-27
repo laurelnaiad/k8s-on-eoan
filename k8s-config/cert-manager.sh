@@ -20,7 +20,7 @@ curl -L https://github.com/jetstack/cert-manager/releases/download/v0.13.0/cert-
 ' > $MYDIR/cert-manager.yaml
 
 # setting dns01-recursive-nameservers is critical, because cert-manager would
-# otherwise wind up consulting resolv.conf, then 127.0.0.1, then 10.0.2.1 aka 10.96.0.1,
+# otherwise wind up consulting resolv.conf, then 127.0.0.1, then 10.0.2.1,
 # which considers itself authoritative over intranet.$PRI_DOMAIN. cert-manager
 # needs the _real_ authoritative server, though, and using public
 # dns01-recursive-nameservers accomplishes that.

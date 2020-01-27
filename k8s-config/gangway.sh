@@ -148,7 +148,7 @@ metadata:
   labels:
     app: gangway
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: nginx-intranet
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: cert-issuer-prod
 spec:
