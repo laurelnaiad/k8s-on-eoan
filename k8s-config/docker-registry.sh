@@ -42,6 +42,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx-intranet
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
     cert-manager.io/cluster-issuer: cert-issuer-prod
 spec:
   rules:
