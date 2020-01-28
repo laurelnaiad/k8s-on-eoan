@@ -39,7 +39,7 @@ clientID: kubernetes
 clientSecret: kubernetes-client-secret
 usernameClaim: email
 apiServerURL: https://$ADVERTISE_ADDR:6443
-customHTMLTemplatesDir: /gangway-templates
+# customHTMLTemplatesDir: /gangway-templates
 scopes: ["openid", "profile", "email", "groups", "offline_access"]
 EOF
 kubectl delete configmap -n gangway gangway

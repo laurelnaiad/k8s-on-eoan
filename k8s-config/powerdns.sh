@@ -55,7 +55,6 @@ gpgsql-dbname=powerdns
 gpgsql-user=powerdns
 include-dir=/etc/powerdns/conf.d
 EOF
-# chmod 0600 $MYDIR/entrypoint.sh
 
 cat > $MYDIR/Dockerfile <<EOF
 FROM debian:$MY_BASE_IMG

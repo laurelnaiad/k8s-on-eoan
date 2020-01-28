@@ -3,48 +3,54 @@
 Bare-Metal Kubernetes on Ubuntu 19.10
 ---
 
-__NOTICE__: _Steps 1 and 2__  of these scripts have not yet been re-tested from start to finish on a clean system. There might be a hiccup or two. Regardless, please please please read them before running them.
+__NOTICE__: _Steps 1 and 2_ of these scripts have not yet been re-tested from start to finish on a clean system. There might be a hiccup or two. Regardless, please please please read them before running them. It may be advisable to execute the .sh files one-by-one.
 
 This repo may be used to configure an Ubuntu 19.10 server to run a single-node Kubernetes cluster, though those who aren't running Ubuntu 19.10 may still find some value in the various scripts within.
 
 It was developed to k8s on a home network for development, testing, playing and maybe some public hosting in the early stages of a project.
 
-There is a "primary" DNS zone associated with this configuration. The scare quotes around primary reflect that there is no fundamental setting, as such -– the k8s cluster's own domain is just the default cluster.local – but the primary zone is that for which we configure nginx-ingress, cert-manager, dex, etc, and off of which the various servers dangle, e.g. https://gangway.\[primary zone\], https://login.\[primary zone\].
+There is a "primary" DNS zone associated with this configuration. The scare quotes around primary reflect that there is no fundamental setting, as such -– the k8s cluster's own domain is just the default cluster.local – but the primary zone is that for which we configure nginx-ingress, cert-manager, dex, etc, and off of which the various servers dangle, e.g. `https://keys.intranet.[primary zone];`, `https://auth.[primary zone]`.
 
 Idiosyncracies:
 
-* Amazon Route53 is used as the DNS host for the primary DNS zone, and as such, the cert-manager configuration involves some code that is specific to Route53. This step can be replaced with a script that works for your DNS provider by ....(instructions here)....
-* Github is used as the OAuth2 authentication mechanism (through Dex). This step can be replaced with a script that works for your (dex-supported) authentication provider by ...(instructions here)...
+* Amazon Route53 is used as the DNS host for the primary DNS zone, and as such, the cert-manager configuration involves some code which is specific to Route53. This step can be replaced with a script that works for your DNS provider.
+* Github is used as an OAuth2 authentication mechanism (through Dex). This step can be replaced with a script that works for your (dex-supported) authentication provider.
 
-There is nothing particularly magical about this configuration – it is the result of banging through what issues cropped up for the bare-metal Ubutu 19.10 platform, and of reading, leveraging, combining and tweaking quite a few how-to recipes for the individual components. Links to such sources appear throughout, along with a few comments.
+There is nothing particularly magical about this configuration – it is the result of banging through what issues cropped up for the bare-metal Ubuntu 19.10 platform, and of reading, leveraging, combining and tweaking quite a few how-to recipes for the individual components. Links to such sources appear throughout, along with a few comments.
 
 ## What gets installed on the host
 
 The following are installed and configured on the host:
 
 * Kubernetes 1.17.1
-* CRI-O
-* crun and runc, configured as RuntimeClasses
-* fuse-overlayfs
-* cni plugins
-* buildah
-* conmon
-* libpod & podman w/support for podman remote
-* skopeo
-* crictl
-* kustomize
-* dnsmasq
-* golang 1.13.5
+* [dnsmasq](https://wiki.debian.org/dnsmasq)
+* [golang 1.13.5](https://github.com/golang/go)
+* [jq](https://stedolan.github.io/jq/) and [yq](https://github.com/kislyuk/yq)
+* [CRI-O](https://github.com/cri-o/cri-o)
+* [crun](https://github.com/containers/crun) and [runc](https://github.com/opencontainers/runc), configured as RuntimeClasses
+* [fuse-overlayfs](https://github.com/containers/fuse-overlayfs)
+* [cni plugins](https://github.com/containernetworking/plugins)
+* [buildah](https://github.com/containers/buildah)
+* [conmon](https://github.com/containers/conmon)
+* [libpod & podman](https://github.com/containers/libpod) w/support for podman remote
+* [skopeo](https://github.com/containers/skopeo)
+* [crictl](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)
+* [kustomize](https://github.com/kubernetes-sigs/kustomize)
+* [helm](https://github.com/helm/helm)
 
 ## What gets installed in the k8s cluster
 
-* flannel cni plugin
-* sealed-secrets
-* MetalLB
-* nginx-ingress
-* cert-manager (configured for letsencrypt)
-* dex
-* gangway
+* [flannel](https://github.com/coreos/flannel) cni plugin
+* [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets)
+* [MetalLB](https://metallb.universe.tf/)
+* [storage/local-static-provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)
+* [nginx-ingress](https://kubernetes.github.io/ingress-nginx/)
+* [cert-manager](https://cert-manager.io/) (configured for letsencrypt)
+* [PostgreSQL](https://www.postgresql.org/)
+* [PowerDNS](https://www.powerdns.com/)
+* [external-dns](https://github.com/kubernetes-sigs/external-dns)
+* [dex](https://github.com/dexidp/dex)
+* [gangway](https://github.com/heptiolabs/gangway)
 * TBD pusher/oauth2_proxy
 * TBD kubernetes dashboard and metrics-server
 
@@ -56,8 +62,8 @@ The following are installed and configured on the host:
 ### Prerequisites
 
 * Install Ubuntu 19.10 on a machine with at least 8GB RAM, using GPT partition tables. I am using a Mac Mini 2014 :)
-* Ensure var, tmp, home dirs have enough space (I gave var and tmp 10GB each and home has 100GB. The balance of the disk is lying fallow for persistent volume claims for apps)
-* Ensure OpenSSH is installed (the installer will offer)
+* Ensure var, tmp, home dirs have enough space (I gave root 20GB, var and tmp 10GB each and home has 100GB. The balance of the disk is lying fallow for persistent volume claims for apps)
+* Ensure OpenSSH is installed (the Ubuntu installer will offer)
 * apt install updates
 * configure passwordless root ssh (if you want/need to run podman remote)
 
@@ -96,9 +102,9 @@ kubectl get pods -A
 
 ## License
 
-MIT.
+The individual software packages that these scripts install bear their own licenses. Please mind them.
 
-Aside from help files/issues in the various repositories for the components here installed, certain scripts were based on or informed by specific blog posts, which cases are noted in-line. The original authors would probably appreciate credit by passing through those references in derivative works.
+As to the actual shell scripts here which do the installing, aside from help files/issues in the various repositories for the components here installed, certain scripts were based on or informed by specific blog posts, which cases are noted in-line. The original authors would probably appreciate credit by passing through those references in derivative works.
 
 ## Contributing
 
