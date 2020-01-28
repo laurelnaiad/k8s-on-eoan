@@ -6,7 +6,7 @@
 #   https://github.com/cesanta/docker_auth/blob/master/examples/reference.yml
 
 ########################################################################
-
+source "${0%/*}/../lib/all.sh"
 MYDIR=$WORK_DIR/docker-registry
 mkdir -p $MYDIR
 rm $MYDIR/docker-registry/values.yaml
@@ -67,10 +67,10 @@ EOF
 
 kustomize build $MYDIR > $MYDIR/package.yaml
 
+# create a partition/persistent volume for the storage...
+add_volume fixed-size 25Gi
+
 kubectl create namespace docker-registry
 kubectl apply -f $MYDIR/package.yaml
 
-# while the docker-registry image is being pulled, we can create a
-# partition/persistent volume for the storage...
-source ./add-volume.sh
-add_volume fixed-size 25Gi
+sudo sed -i "s/'docker.io'/'docker-registry.intranet.$PRI_DOMAIN', 'docker.io'/" /etc/containers/registries.conf
