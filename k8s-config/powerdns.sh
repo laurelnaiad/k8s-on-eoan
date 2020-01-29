@@ -29,9 +29,10 @@ kce_psql powerdns $PDNS_PASS "$DDL"
 ########################################################################
 # build powerdns image (if not already present)
 ########################################################################
+LONG_IMG=docker-registry.intranet.$PRI_DOMAIN/powerdns:debian-$MY_BASE_IMG
 kubectl delete namespace $KNS
-sudo podman rmi localhost/powerdns:debian-$MY_BASE_IMG
-if ! [[ $(sudo podman inspect localhost/powerdns:debian-$MY_BASE_IMG) ]]
+sudo podman rmi $LONG_IMG
+if ! [[ $(sudo podman inspect $LONG_IMG) ]]
 then
 cat > $MYDIR/entrypoint.sh <<'EOF'
 #!/bin/bash
@@ -68,7 +69,7 @@ COPY pdns.conf /etc/powerdns/
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 EOF
-sudo podman build -t localhost/powerdns:debian-$MY_BASE_IMG $MYDIR
+sudo podman build -t $LONG_IMG $MYDIR
 fi
 
 ########################################################################
@@ -144,7 +145,7 @@ spec:
         - name: powerdns-db-pass
           readOnly: true
           mountPath: /etc/powerdns/conf.d
-        image: localhost/powerdns:debian-$MY_BASE_IMG
+        image: $LONG_IMG
         imagePullPolicy: IfNotPresent
         args:
         - --config-dir=/etc/powerdns

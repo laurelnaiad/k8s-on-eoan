@@ -16,6 +16,7 @@ source ../secure-vars.sh
 ./k8s-config/powerdns.sh
 ./k8s-config/external-dns.sh
 ./k8s-config/docker-registry.sh
+./k8s-config/powerdns-push.sh
 ./k8s-config/dex.sh
 ./k8s-config/gangway.sh
 ./k8s-config/authorization-config.sh
