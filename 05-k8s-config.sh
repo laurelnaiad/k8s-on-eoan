@@ -21,3 +21,5 @@ source ../secure-vars.sh
 ./k8s-config/gangway.sh
 ./k8s-config/authorization-config.sh
 ./k8s-config/oauth2_proxy.sh
+./k8s-config/dashboard.sh
+./k8s-config/metrics-server.sh
