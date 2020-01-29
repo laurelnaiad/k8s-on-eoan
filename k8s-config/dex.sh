@@ -43,6 +43,7 @@ staticClients:
 - id: kubernetes
   redirectURIs:
   - "$KEYS_APP_URL/callback"
+  - "$LOGIN_APP_URL/callback"
   name: kubernetes
   secret: kubernetes-client-secret
 YAML

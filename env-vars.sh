@@ -65,6 +65,7 @@ export GITHUB_ORG=
 export DASHBOARD_HOST=dashboard
 export DEX_ISSUER_HOST=auth
 export KEYS_APP_HOST=keys
+export LOGIN_APP_HOST=login
 
 # probably don't want to modify these:
 
@@ -83,5 +84,8 @@ export DEX_ISSUER_FQDN=$DEX_ISSUER_HOST.$PRI_DOMAIN
 export DEX_ISSUER_URL=https://$DEX_ISSUER_FQDN:$DEX_PORT
 export KEYS_APP_FQDN=$KEYS_APP_HOST.intranet.$PRI_DOMAIN
 export KEYS_APP_URL=https://$KEYS_APP_FQDN
+export LOGIN_APP_FQDN=$LOGIN_APP_HOST.$PRI_DOMAIN
+export LOGIN_APP_URL=https://$LOGIN_APP_FQDN/oauth2
+
 
 export SSCERT=$WORK_DIR/sealed-secrets/sealed-secrets-cert.pem

@@ -20,3 +20,4 @@ source ../secure-vars.sh
 ./k8s-config/dex.sh
 ./k8s-config/gangway.sh
 ./k8s-config/authorization-config.sh
+./k8s-config/oauth2_proxy.sh
