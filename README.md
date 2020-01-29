@@ -51,11 +51,10 @@ The following are installed and configured on the host:
 * [external-dns](https://github.com/kubernetes-sigs/external-dns)
 * [dex](https://github.com/dexidp/dex)
 * [gangway](https://github.com/heptiolabs/gangway)
-* TBD pusher/oauth2_proxy
-* TBD kubernetes dashboard and metrics-server
+* [oauth2_proxy](https://github.com/pusher/oauth2_proxy)
+* [kubernetes dashboard](https://github.com/kubernetes/dashboard) and [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 
-<!-- The dashboard, which is exposed behind a singe-signon proxy, is the capstone of this configuration, It exercises all of the other installed runtime components.
--->
+The dashboard, which is exposed behind a singe-signon proxy configured to authenticate against Github via Dex, is the capstone of this configuration, It exercises all of the other installed k8s-hosted services.
 
 ## Instructions
 
@@ -102,9 +101,11 @@ kubectl get pods -A
 
 ## License
 
-The individual software packages that these scripts install bear their own licenses. Please mind them.
+The individual software packages that these scripts install bear their own licenses. Please mind them. This repository is intended to jump-start using some or all of the services, it's not an application in itself.
 
-As to the actual shell scripts here which do the installing, aside from help files/issues in the various repositories for the components here installed, certain scripts were based on or informed by specific blog posts, which cases are noted in-line. The original authors would probably appreciate credit by passing through those references in derivative works.
+The scripts, such as they are, are [WTFPL V2](https://en.wikipedia.org/wiki/WTFPL).
+
+Aside from help files/issues in the various repositories for the components here installed, certain scripts were based on or informed by specific blog posts, which cases are noted in-line. The original authors would probably appreciate credit by passing through those references in derivative works.
 
 ## Contributing
 
