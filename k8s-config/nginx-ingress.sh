@@ -132,8 +132,6 @@ cat $MYDIR/mandatory.yaml | yq -y --arg SECRET ingress-nginx/$PRI_DOMAIN-tls '. 
 
 cat $MYDIR/ingress-config.yaml | yq -y '. | select(.kind | test("Service")) | .metadata.name = "ingress-nginx-intranet"' > $MYDIR/second-service.yaml
 
-wget -O $MYDIR/default-backend.yaml https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/docs/examples/customization/custom-errors/custom-default-backend.yaml
-
 cat <<EOF > $MYDIR/default-ingress-public.yaml
 kind: Ingress
 apiVersion: networking.k8s.io/v1beta1
@@ -225,7 +223,6 @@ resources:
 - second-configmap.yaml
 - second-deployment.yaml
 - second-service.yaml
-- default-backend.yaml
 - default-ingress-public.yaml
 - default-ingress-intranet.yaml
 - ingress-errors.yaml
